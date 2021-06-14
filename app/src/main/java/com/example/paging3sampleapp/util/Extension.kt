@@ -1,7 +1,9 @@
 package com.example.paging3sampleapp.util
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -15,7 +17,7 @@ fun ImageView.loadImage(
     errorPlaceholderResId: Int? = null,
     isError: ((Boolean) -> Unit)? = null
 ) {
-    Glide.with(this).load(url).placeholder(placeholderResId ?: -1).error(placeholderResId)
+    Glide.with(this).load(url).placeholder(placeholderResId ?: -1).error(errorPlaceholderResId)
         .listener(object : RequestListener<Drawable> {
             override fun onLoadFailed(
                 e: GlideException?,
@@ -39,4 +41,9 @@ fun ImageView.loadImage(
             }
 
         }).into(this)
+
+}
+
+fun Context.showToastMsg(msg: String, duration: Int = Toast.LENGTH_LONG) {
+    Toast.makeText(this, msg, duration).show()
 }

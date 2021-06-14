@@ -49,7 +49,10 @@ class MoviePageAdapter :
         fun bind(movieDataModel: MovieDataModel?) {
             with(binding) {
                 movieDataModel?.run {
-                    imageViewMovie.loadImage(Poster, R.mipmap.movie_placeholder) { _ ->
+                    imageViewMovie.loadImage(
+                        Poster, R.mipmap.movie_placeholder,
+                        errorPlaceholderResId = R.mipmap.movie_placeholder
+                    ) { _ ->
                         imageViewMovie.stopLoading()
                     }
                     textViewName.text = Title

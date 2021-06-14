@@ -35,7 +35,6 @@ class MovieLoadStateAdapter(private val onRetryClick: () -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(loadState: LoadState) {
-
             setViewVisibility(loadState)
             if (loadState is LoadState.Error) {
                 binding.textViewError.text = loadState.error.localizedMessage

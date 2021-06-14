@@ -4,4 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class MovieDataModel(@PrimaryKey val imdbID: String, val Title: String, val Year: String,val Poster: String)
+data class MovieDataModel(
+    @PrimaryKey val imdbID: String,
+    val Title: String,
+    val Year: String,
+    val Poster: String
+)

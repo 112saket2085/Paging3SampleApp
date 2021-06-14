@@ -9,5 +9,6 @@
     <string name="str_airline">Airline</string>
     <string name="str_retry">Retry</string>
     <string name="str_movies">Movies</string>
+    <string name="str_movies_list">Movies</string>
 
 </resources>

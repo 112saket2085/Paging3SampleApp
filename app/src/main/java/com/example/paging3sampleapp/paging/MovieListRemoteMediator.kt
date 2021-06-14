@@ -29,6 +29,10 @@ class MovieListRemoteMediator @Inject constructor(
                 }
             }
             val response = apiService.getMovieDetails(query = "Batman", page = nextPageNumber)
+            if(loadType == LoadType.REFRESH) {
+                dao.deleteAllMovieData()
+                dao.deleteRemoteKey("Batman")
+            }
             response?.Search?.let {
                 dao.insertMovies(it)
                 dao.insertKey(RemoteKey("Batman", nextPageNumber + 1))

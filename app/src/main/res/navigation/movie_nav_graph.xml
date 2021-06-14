@@ -8,6 +8,6 @@
     <fragment
         android:id="@+id/moviesListFragment"
         android:name="com.example.paging3sampleapp.view.dashboard.MoviesListListFragment"
-        android:label="PassengerListFragment"
+        android:label="@string/str_movies_list"
         tools:layout="@layout/fragment_movie_list"/>
 </navigation>
