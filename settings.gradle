@@ -1,0 +1,2 @@
+rootProject.name = "Paging3SampleApp"
+include ':app'
