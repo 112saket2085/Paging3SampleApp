@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MoviesListListFragment : BaseFragment(R.layout.fragment_movie_list) {
 
+
     private val fetchMoviesViewModel by viewModels<FetchMoviesViewModel>()
     private lateinit var adapter: MoviePageAdapter
     private lateinit var binding: FragmentMovieListBinding
@@ -31,9 +32,13 @@ class MoviesListListFragment : BaseFragment(R.layout.fragment_movie_list) {
     private fun initView() {
         adapter = MoviePageAdapter()
         binding.recyclerViewMovies.adapter =
-            adapter.withLoadStateFooter(footer = MovieLoadStateAdapter {
-                adapter.retry()
-            })
+            adapter.withLoadStateHeaderAndFooter(
+                header = MovieLoadStateAdapter {
+                    adapter.retry()
+                },
+                footer = MovieLoadStateAdapter {
+                    adapter.retry()
+                })
         binding.swipeRefresh.setOnRefreshListener {
             adapter.refresh()
         }
@@ -54,9 +59,15 @@ class MoviesListListFragment : BaseFragment(R.layout.fragment_movie_list) {
                 binding.contentEmpty.textViewRetry.setOnClickListener {
                     adapter.retry()
                 }
+                if (loadStates.refresh is LoadState.Error) {
+                    binding.contentEmpty.textViewError.text =
+                        (loadStates.refresh as LoadState.Error).error.localizedMessage
+                }
             }
         }
-        fetchMoviesViewModel.pagingDataLiveData.observe(viewLifecycleOwner) {
+        fetchMoviesViewModel.setQueryParameter("Movies").pagingDataLiveData.observe(
+            viewLifecycleOwner
+        ) {
             lifecycleScope.launch {
                 adapter.submitData(it)
             }

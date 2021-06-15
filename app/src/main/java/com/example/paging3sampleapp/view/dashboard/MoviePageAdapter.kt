@@ -53,7 +53,7 @@ class MoviePageAdapter :
                         Poster, R.mipmap.movie_placeholder,
                         errorPlaceholderResId = R.mipmap.movie_placeholder
                     ) { _ ->
-                        imageViewMovie.stopLoading()
+//                        imageViewMovie.stopLoading()
                     }
                     textViewName.text = Title
                     textViewId.text = imdbID

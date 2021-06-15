@@ -29,7 +29,7 @@
         android:layout_below="@+id/text_view_error"
         android:text="@string/str_retry"
         android:textAppearance="@style/Light"
-        android:textColor="@color/black"
+        android:textColor="@color/purple_500"
         android:textSize="14sp"
         android:visibility="visible" />
 

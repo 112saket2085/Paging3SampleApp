@@ -2,7 +2,7 @@ package com.example.paging3sampleapp.di.module
 
 import android.content.Context
 import androidx.room.Room
-import com.example.paging3sampleapp.app.Constants
+import com.example.paging3sampleapp.app.AppConstants
 import com.example.paging3sampleapp.room.database.MovieDatabase
 import com.example.paging3sampleapp.rest.api.MovieDetailService
 import dagger.Module
@@ -42,7 +42,7 @@ class AppModule {
     @Singleton
     fun getMovieDetailService(okHttpClient: OkHttpClient): MovieDetailService =
         Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(AppConstants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build().create(MovieDetailService::class.java)

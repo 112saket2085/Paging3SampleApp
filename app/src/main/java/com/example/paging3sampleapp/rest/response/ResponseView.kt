@@ -4,6 +4,7 @@ object ResponseView {
 
     data class BaseResponse<T>(
         val Response: String,
+        val Error: String?,
         val Search: T?,
         val totalResults: String
     )
