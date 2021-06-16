@@ -1,0 +1,23 @@
+def versions = [:]
+
+versions.kotlin = "1.5.10"
+versions.retrofit = "2.9.0"
+versions.okhttp = "4.9.0"
+versions.hilt = "2.33-beta"
+versions.navigation = "2.3.5"
+versions.room = "2.3.0"
+versions.paging = "3.0.0"
+versions.glide = "4.12.0"
+versions.swiperefresh = "1.1.0"
+versions.calligraphy = "3.1.1"
+
+ext.versions = versions
+
+def build_version = [:]
+
+build_version.min_sdk = 21
+build_version.target_sdk = 30
+build_version.compile_sdk = 30
+build_version.build_tools = "30.0.3"
+
+ext.build_version = build_version

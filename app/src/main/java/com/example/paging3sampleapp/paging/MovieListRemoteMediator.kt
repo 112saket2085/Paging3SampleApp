@@ -39,8 +39,6 @@ class MovieListRemoteMediator @Inject constructor(
                 LoadType.REFRESH -> {
                     Logger.log<MovieListRemoteMediator>(Logger.LogType.DEBUG, "REFRESH CALLED")
                     1
-
-
                 }
                 LoadType.PREPEND -> {
                     Logger.log<MovieListRemoteMediator>(Logger.LogType.DEBUG, "PREPEND CALLED")

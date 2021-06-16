@@ -8,13 +8,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion build_version.compile_sdk
+    buildToolsVersion build_version.build_tools
 
     defaultConfig {
         applicationId "com.example.paging3sampleapp"
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion build_version.min_sdk
+        targetSdkVersion build_version.target_sdk
         versionCode 1
         versionName "1.0"
 
@@ -42,37 +42,39 @@ android {
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
     implementation 'androidx.core:core-ktx:1.5.0'
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     //Calligraphy
-    implementation 'io.github.inflationx:calligraphy3:3.1.1'
+    implementation "io.github.inflationx:calligraphy3:$versions.calligraphy"
     //Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    // Room
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    //Dependency Injection(Hilt)
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
-    //Glide
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
-    //Paging3
-    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
     //Gson
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
     //okhttp
-    implementation("com.squareup.okhttp3:okhttp:$okhttp_version")
-    implementation("com.squareup.okhttp3:logging-interceptor:$okhttp_version")
+    implementation("com.squareup.okhttp3:okhttp:$versions.okttp")
+    implementation("com.squareup.okhttp3:logging-interceptor:$versions.okhttp")
+    // Room
+    implementation "androidx.room:room-runtime:$versions.room"
+    kapt "androidx.room:room-compiler:$versions.room"
+    implementation "androidx.room:room-ktx:$versions.room"
+    //Dependency Injection(Hilt)
+    implementation "com.google.dagger:hilt-android:$versions.hilt"
+    kapt "com.google.dagger:hilt-compiler:$versions.hilt"
+    //Glide
+    implementation "com.github.bumptech.glide:glide:$versions.glide"
+    kapt "com.github.bumptech.glide:compiler:$versions.glide"
+    //Paging3
+    implementation "androidx.paging:paging-runtime-ktx:$versions.paging"
+    //SwipeRefresh
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swiperefresh"
     implementation 'com.github.AgnaldoNP:AGSkeletonLoading:1.2'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 }
