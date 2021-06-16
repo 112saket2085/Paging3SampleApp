@@ -2,6 +2,7 @@ package com.example.paging3sampleapp.di.module
 
 import android.content.Context
 import androidx.room.Room
+import com.example.paging3sampleapp.BuildConfig
 import com.example.paging3sampleapp.app.AppConstants
 import com.example.paging3sampleapp.room.database.MovieDatabase
 import com.example.paging3sampleapp.rest.api.MovieDetailService
@@ -33,7 +34,8 @@ class AppModule {
     @Singleton
     fun getOkhttpClient(): OkHttpClient = OkHttpClient.Builder().run {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            if (BuildConfig.BUILD_TYPE == AppConstants.DEBUG_TYPE) level =
+                HttpLoggingInterceptor.Level.BODY
         }
         addNetworkInterceptor(loggingInterceptor).build()
     }

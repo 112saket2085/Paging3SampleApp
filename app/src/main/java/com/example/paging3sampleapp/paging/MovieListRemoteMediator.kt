@@ -10,6 +10,7 @@ import com.example.paging3sampleapp.rest.api.MovieDetailService
 import com.example.paging3sampleapp.room.dao.MovieDao
 import com.example.paging3sampleapp.room.entity.MovieDataModel
 import com.example.paging3sampleapp.room.entity.RemoteKey
+import com.example.paging3sampleapp.util.Logger
 import java.io.IOException
 import javax.inject.Inject
 
@@ -35,9 +36,18 @@ class MovieListRemoteMediator @Inject constructor(
     ): MediatorResult {
         return try {
             val nextPageNumber = when (loadType) {
-                LoadType.REFRESH -> 1
-                LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
+                LoadType.REFRESH -> {
+                    Logger.log<MovieListRemoteMediator>(Logger.LogType.DEBUG, "REFRESH CALLED")
+                    1
+
+
+                }
+                LoadType.PREPEND -> {
+                    Logger.log<MovieListRemoteMediator>(Logger.LogType.DEBUG, "PREPEND CALLED")
+                    return MediatorResult.Success(endOfPaginationReached = false)
+                }
                 LoadType.APPEND -> {
+                    Logger.log<MovieListRemoteMediator>(Logger.LogType.DEBUG, "APPEND CALLED")
                     dao.getNextPageNumber(query) ?: 1
                 }
             }
