@@ -1,6 +1,5 @@
 package com.example.paging3sampleapp.view.dashboard
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintSet
@@ -10,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.paging3sampleapp.R
 import com.example.paging3sampleapp.databinding.ItemsMoviesBinding
 import com.example.paging3sampleapp.room.entity.MovieDataModel
+import com.example.paging3sampleapp.util.getShimmerPlaceholder
 import com.example.paging3sampleapp.util.loadImage
 
 class MoviePageAdapter :
@@ -29,8 +29,7 @@ class MoviePageAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemsMoviesBinding.inflate(LayoutInflater.from(parent.context)),
-            parent.context
+            ItemsMoviesBinding.inflate(LayoutInflater.from(parent.context))
         )
     }
 
@@ -40,21 +39,18 @@ class MoviePageAdapter :
         holder.bind(data)
     }
 
-    class ViewHolder(private val binding: ItemsMoviesBinding, private val context: Context) :
+    class ViewHolder(private val binding: ItemsMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         private val constraintSet = ConstraintSet()
-
 
         fun bind(movieDataModel: MovieDataModel?) {
             with(binding) {
                 movieDataModel?.run {
                     imageViewMovie.loadImage(
-                        Poster, R.mipmap.movie_placeholder,
+                        Poster, shimmerPlaceholder = imageViewMovie.getShimmerPlaceholder(),
                         errorPlaceholderResId = R.mipmap.movie_placeholder
-                    ) { _ ->
-//                        imageViewMovie.stopLoading()
-                    }
+                    )
                     textViewName.text = Title
                     textViewId.text = imdbID
                     textViewYear.text = Year

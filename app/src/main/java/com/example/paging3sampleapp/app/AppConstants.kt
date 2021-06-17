@@ -9,4 +9,5 @@ object AppConstants {
     const val NO_INTERNET_AVAILABLE = "No Internet Available"
     const val DEBUG_TYPE = "debug"
     const val RELEASE_TYPE = "release"
+    const val DEFAULT_QUERY_PARAM_TYPE = "Movies"
 }

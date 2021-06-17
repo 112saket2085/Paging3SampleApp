@@ -5,8 +5,10 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import com.example.paging3sampleapp.R
+import com.example.paging3sampleapp.app.AppConstants
 import com.example.paging3sampleapp.databinding.FragmentMovieListBinding
 import com.example.paging3sampleapp.util.showToastMsg
 import com.example.paging3sampleapp.view.base.BaseFragment
@@ -14,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+@ExperimentalPagingApi
 @AndroidEntryPoint
 class MoviesListListFragment : BaseFragment(R.layout.fragment_movie_list) {
 
@@ -26,7 +29,7 @@ class MoviesListListFragment : BaseFragment(R.layout.fragment_movie_list) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMovieListBinding.bind(view)
         initView()
-        observeData()
+        observeData(AppConstants.DEFAULT_QUERY_PARAM_TYPE)
     }
 
     private fun initView() {
@@ -41,7 +44,7 @@ class MoviesListListFragment : BaseFragment(R.layout.fragment_movie_list) {
         }
     }
 
-    private fun observeData() {
+    private fun observeData(query: String) {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             adapter.loadStateFlow.collect { loadStates ->
                 with(binding) {
@@ -67,7 +70,7 @@ class MoviesListListFragment : BaseFragment(R.layout.fragment_movie_list) {
                 }
             }
         }
-        fetchMoviesViewModel.setQueryParameter("Movies").pagingDataLiveData.observe(
+        fetchMoviesViewModel.loadPagingData(query).observe(
             viewLifecycleOwner
         ) {
             lifecycleScope.launch {

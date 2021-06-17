@@ -14,7 +14,7 @@ import com.example.paging3sampleapp.util.Logger
 import java.io.IOException
 import javax.inject.Inject
 
-@OptIn(ExperimentalPagingApi::class)
+@ExperimentalPagingApi
 class MovieListRemoteMediator @Inject constructor(
     private val dao: MovieDao,
     private val apiService: MovieDetailService

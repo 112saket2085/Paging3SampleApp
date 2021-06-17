@@ -76,5 +76,5 @@ dependencies {
     implementation "androidx.paging:paging-runtime-ktx:$versions.paging"
     //SwipeRefresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swiperefresh"
-    implementation 'com.github.AgnaldoNP:AGSkeletonLoading:1.2'
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }
