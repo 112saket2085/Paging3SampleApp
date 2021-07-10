@@ -3,11 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/passengers_nav_graph"
-    app:startDestination="@id/moviesListFragment">
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.paging3sampleapp.view.onboarding.SplashFragment"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/action_splashFragment_to_moviesListFragment"
+            app:destination="@id/moviesListFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/moviesListFragment"
-        android:name="com.example.paging3sampleapp.view.dashboard.MoviesListListFragment"
-        android:label="@string/str_movies_list"
-        tools:layout="@layout/fragment_movie_list"/>
+        android:name="com.example.paging3sampleapp.view.dashboard.MovieListFragment"
+        tools:layout="@layout/fragment_movie_list">
+
+        <action
+            android:id="@+id/action_moviesListFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.example.paging3sampleapp.view.details.MovieDetailFragment"
+        tools:layout="@layout/fragment_movie_detail">
+
+        <argument
+            android:name="movieData"
+            app:argType="com.example.paging3sampleapp.room.entity.MovieDataModel" />
+    </fragment>
+
+
 </navigation>

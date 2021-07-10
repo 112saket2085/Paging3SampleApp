@@ -2,7 +2,6 @@ package com.example.paging3sampleapp.view.dashboard
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,8 +10,11 @@ import com.example.paging3sampleapp.databinding.ItemsMoviesBinding
 import com.example.paging3sampleapp.room.entity.MovieDataModel
 import com.example.paging3sampleapp.util.getShimmerPlaceholder
 import com.example.paging3sampleapp.util.loadImage
+import dagger.hilt.android.scopes.FragmentScoped
+import javax.inject.Inject
 
-class MoviePageAdapter :
+@FragmentScoped
+class MoviePageAdapter @Inject constructor() :
     PagingDataAdapter<MovieDataModel, MoviePageAdapter.ViewHolder>(diffCallback = object :
         DiffUtil.ItemCallback<MovieDataModel>() {
 
@@ -26,6 +28,7 @@ class MoviePageAdapter :
 
     }) {
 
+    internal lateinit var onItemClick: (MovieDataModel) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -33,32 +36,27 @@ class MoviePageAdapter :
         )
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = getItem(position)
         holder.bind(data)
+        data?.let { movieData ->
+            holder.itemView.setOnClickListener {
+                onItemClick(movieData)
+            }
+        }
     }
 
     class ViewHolder(private val binding: ItemsMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val constraintSet = ConstraintSet()
-
         fun bind(movieDataModel: MovieDataModel?) {
             with(binding) {
                 movieDataModel?.run {
                     imageViewMovie.loadImage(
-                        Poster, shimmerPlaceholder = imageViewMovie.getShimmerPlaceholder(),
-                        errorPlaceholderResId = R.mipmap.movie_placeholder
+                        Poster,
+                        shimmerPlaceholder = imageViewMovie.getShimmerPlaceholder(baseColor = R.color.light_grey),
+                        errorPlaceholderResId = R.mipmap.image_placeholder_new
                     )
-                    textViewName.text = Title
-                    textViewId.text = imdbID
-                    textViewYear.text = Year
-
-                    val ratio = String.format("%d:%d", 1, 2)
-                    constraintSet.clone(constraintLayout)
-                    constraintSet.setDimensionRatio(imageViewMovie.id, ratio)
-                    constraintSet.applyTo(constraintLayout)
                 }
             }
         }

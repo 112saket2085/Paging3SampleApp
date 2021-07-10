@@ -1,11 +1,18 @@
 package com.example.paging3sampleapp.view.base
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.example.paging3sampleapp.util.removeFullscreen
+import com.example.paging3sampleapp.util.setFullscreen
 import com.example.paging3sampleapp.view.MainActivity
 
-open class BaseFragment(private val layoutResId: Int) : Fragment(layoutResId) {
+open class BaseFragment : Fragment {
+
+    constructor(layoutResId: Int) : super(layoutResId)
+    constructor() : super()
 
     protected val mainActivity by lazy {
         requireActivity() as MainActivity
@@ -17,6 +24,24 @@ open class BaseFragment(private val layoutResId: Int) : Fragment(layoutResId) {
 
     private val navController by lazy {
         findNavController()
+    }
+
+    protected open fun isToolbarNeeded() = true
+
+    protected open fun getTitle() = ""
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mainActivity.supportActionBar?.let {
+            if (isToolbarNeeded()) it.show() else it.hide()
+        }
+        setActionBarTitle(getTitle())
+    }
+
+    protected fun setActionBarTitle(title: String) {
+        mainActivity.supportActionBar?.let {
+            it.title = title
+        }
     }
 
     /**

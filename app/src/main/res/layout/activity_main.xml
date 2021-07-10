@@ -10,9 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/purple_700"
+        android:background="@color/purple_500"
         app:titleTextColor="@color/white"
-        />
+        app:theme="@style/MyThemeOverlay.ActionBar"/>
+
 
    <androidx.fragment.app.FragmentContainerView
        android:id="@+id/fragment_container"

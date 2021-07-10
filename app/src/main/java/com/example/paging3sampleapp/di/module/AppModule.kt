@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.example.paging3sampleapp.BuildConfig
 import com.example.paging3sampleapp.app.AppConstants
-import com.example.paging3sampleapp.room.database.MovieDatabase
 import com.example.paging3sampleapp.rest.api.MovieDetailService
+import com.example.paging3sampleapp.room.database.MovieDatabase
+import com.example.paging3sampleapp.util.dataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,6 +21,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
+
+
+    @Provides
+    @Singleton
+    fun getDataStorePreference(@ApplicationContext context: Context) = context.dataStore
 
     @Provides
     @Singleton

@@ -1,4 +1,4 @@
-package com.example.paging3sampleapp.paging
+package com.example.paging3sampleapp.repository
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -42,7 +42,7 @@ class MovieListRemoteMediator @Inject constructor(
                 }
                 LoadType.PREPEND -> {
                     Logger.log<MovieListRemoteMediator>(Logger.LogType.DEBUG, "PREPEND CALLED")
-                    return MediatorResult.Success(endOfPaginationReached = false)
+                    return MediatorResult.Success(false)
                 }
                 LoadType.APPEND -> {
                     Logger.log<MovieListRemoteMediator>(Logger.LogType.DEBUG, "APPEND CALLED")
@@ -54,13 +54,20 @@ class MovieListRemoteMediator @Inject constructor(
                 return MediatorResult.Error(Throwable(it))
             }
             if (loadType == LoadType.REFRESH) {
-                dao.deleteAllMovieData()
+                dao.deleteMovieData(query)
                 dao.deleteRemoteKey(query)
             }
             response.Search?.let {
-                dao.insertMovies(it)
+                val movieList = it.map {  movies ->
+                    movies.apply {
+                       tag = query
+                   }
+                }
+                dao.insertMovies(movieList)
                 dao.insertKey(RemoteKey(query, nextPageNumber + 1))
             }
+            val endOfPagination = response.Search?.isEmpty() ?: true || (nextPageNumber * NETWORK_PAGE_SIZE >= response.totalResults.toInt())
+            Logger.log<MovieListRemoteMediator>(loggerType = Logger.LogType.DEBUG,"$endOfPagination")
             MediatorResult.Success(
                 endOfPaginationReached = response.Search?.isEmpty() ?: true || (nextPageNumber * NETWORK_PAGE_SIZE >= response.totalResults.toInt())
             )
@@ -70,6 +77,10 @@ class MovieListRemoteMediator @Inject constructor(
     }
 
     override suspend fun initialize(): InitializeAction {
-        return if (dao.getNextPageNumber(query) == null) InitializeAction.LAUNCH_INITIAL_REFRESH else InitializeAction.SKIP_INITIAL_REFRESH
+        return if (dao.getNextPageNumber(query) == null) {
+            InitializeAction.LAUNCH_INITIAL_REFRESH
+        } else {
+            InitializeAction.SKIP_INITIAL_REFRESH
+        }
     }
 }

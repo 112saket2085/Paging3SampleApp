@@ -1,7 +1,7 @@
 package com.example.paging3sampleapp.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private fun initView() {
         setSupportActionBar(binding.toolbar)
         navController = (supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment).findNavController()
-        appBarConfiguration = AppBarConfiguration.Builder(R.id.moviesListFragment).build()
+        appBarConfiguration = AppBarConfiguration.Builder(R.id.moviesListFragment,R.id.splashFragment).build()
         NavigationUI.setupActionBarWithNavController(this,navController,appBarConfiguration)
     }
 

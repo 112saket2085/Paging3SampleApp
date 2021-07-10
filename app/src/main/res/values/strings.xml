@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Paging3SampleApp</string>
+    <string name="app_name">Movies</string>
     <string name="str_empty_movie_list">No Movie Found</string>
 
     <string name="text_font_regular" translatable="false">Roboto-Regular.ttf</string>
@@ -10,5 +10,10 @@
     <string name="str_retry">Retry</string>
     <string name="str_movies">Movies</string>
     <string name="str_movies_list">Movies</string>
+    <string name="str_search">Search</string>
+    <string name="str_movie_name">Movie Name</string>
+    <string name="str_year">Year</string>
+    <string name="str_type">Type</string>
+    <string name="str_back">Back</string>
 
 </resources>

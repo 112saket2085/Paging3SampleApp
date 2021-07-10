@@ -77,4 +77,7 @@ dependencies {
     //SwipeRefresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swiperefresh"
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    //DataStore Preference
+    implementation "androidx.datastore:datastore-preferences:$versions.data_store_preference"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
 }
